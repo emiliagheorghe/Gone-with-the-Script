@@ -1,0 +1,40 @@
+.externLoginFBList >div>svg{
+    display: none;
+}
+.externLoginFBList >div{
+    display: none;
+}
+.externLoginFBList{
+    height: 42px;
+    width: 80px;
+}
+.externLoginFBList > span{
+    margin-left: 10px;
+}
+.feedbackContainer{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    text-align: center;
+    border-style: solid;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+#butonAddFeedback{
+    margin-right: 20px;
+    float: right;
+    background-color:rebeccapurple;
+}
+#title{
+    text-align: center;
+}
+#yourProfileBtn{
+    margin-right: 10px;
+}
+#contributeEditBtn{
+    margin-right: 10px;
+}
+#contributeDeleteBtn{
+    margin-left: 5px;
+
+}
