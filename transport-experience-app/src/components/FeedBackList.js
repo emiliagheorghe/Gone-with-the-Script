@@ -19,7 +19,8 @@ import { feedbackActions } from "../actions";
 
 const FeedbackListSelector = state => state.feedback.feedbackList;
 
-function FeedBackList() {
+function FeedBackList(props) {
+  const user = props
   const clientId =
     "434716652166-ppknk86m7bblshij8q1ooejioch6vuo6.apps.googleusercontent.com";
   const history = useHistory();
@@ -47,6 +48,7 @@ function FeedBackList() {
 
   useEffect(() => {
     dispatch(feedbackActions.getFeedbacks());
+    console.log(user)
   }, [dispatch]);
 
   const openNew = () => {
@@ -157,7 +159,7 @@ function FeedBackList() {
 
   const header = (
     <div className="table-header">
-      <h5 className="p-mx-0 p-my-1" id="title">Manage Feedbacks</h5>
+      <h5 className="p-mx-0 p-my-1" id="title">Feedbacks and Experiences with Public Transport</h5>
       <span className="p-input-icon-left">
         <i className="pi pi-search" />
         <InputText
@@ -205,13 +207,16 @@ function FeedBackList() {
       className="externLoginFBList"
     ></GoogleLogout>
   );
+  const goToProfile = (user) => {
+    history.push('/user')
+  }
 
   return (
     <div>
       <Menubar
         end={
           <>
-            <Button icon="pi pi-fw pi-user" label="Your Profile" id="yourProfileBtn"/>
+            <Button icon="pi pi-fw pi-user" label="Your Profile" id="yourProfileBtn" onClick={goToProfile}/>
             {endF}
           </>
         }

@@ -1,0 +1,24 @@
+.p-float-label{
+    display: block;
+    padding: 20px;
+    text-align: center
+}
+.title{
+    text-align: center;
+    font-size: larger;
+    font-weight: 700;
+    padding-bottom: 20px;
+}
+.button{
+    text-align: center;
+}
+.p-button-outlined{
+    margin-right: 10px;
+}
+.back{
+    margin: 20px;
+}
+.labels{
+    display: inline;
+    margin-right: 10px;
+}

@@ -1,5 +1,5 @@
 // import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useRef } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
@@ -9,12 +9,18 @@ import './Login.css';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { userActions } from '../actions'
+import { Toast } from "primereact/toast";
 
-const userListSelector = state => state.user.userList;
+const userListSelector = state => state.user.usersList;
 
-function Login() {
+function Login(props) {
 
   const clientId = '434716652166-ppknk86m7bblshij8q1ooejioch6vuo6.apps.googleusercontent.com';
+  const {user, onUserChange} = props
+  const [userEmail, setUserEmail] = useState(user.email)
+  const [userUsername, setUserUsername] = useState(user.username)
+  const [userPassword, setUserPassword] = useState(user.password)
+
   const [username, setUsername] = useState([]);
   const [password, setPassword] = useState([]);
   const [existingEmail, setExistingEmail] = useState([]);
@@ -22,36 +28,74 @@ function Login() {
   const [correctUser,setCorrectUser] = useState([]);
   const [email, setEmail] = useState([]);
   const history = useHistory();
-  // const users = useSelector(userListSelector, shallowEqual)
-  let [userList, setUserList] = useState([]);
+  const toast = useRef(null);
+  const userList = useSelector(userListSelector, shallowEqual)
+  // let [userList, setUserList] = useState([]);
   const dispatch = useDispatch()
   
-
-
-  const handleRegister = () => {
-        dispatch(userActions.addUser({username, password, email}));
-        userList.push({username, password, email});
-  };
-  const handleLogin = () => {
-
-    userList.map((user) => { if(user.password === existingPassword && user.email === existingEmail) {setCorrectUser(true)}})
-    // console.log(usersList)
-    // usersList.find(element => element.email === existingEmail )
-    if(correctUser){
-      history.push('/dashboard');
-      setCorrectUser(false)
-    }
-    else{
-      console.log('Incorrect credentials')
-    }
-  };
   useEffect(() => {
     // console.log(this.state.user.userList)
     // setCorrectUser(false)
     dispatch(userActions.getUsers())
-    userList = dispatch(userActions.getUsers())
+    // userList = dispatch(userActions.getUsers())
     console.log(userList)
   }, [dispatch])
+
+  const handleRegister = () => {
+    let v = true;
+      userList.map((us) => { 
+        if(us.email === existingEmail) {
+          v = false;
+          toast.current.show({
+            severity: "error",
+            summary: "Error",
+            detail: "Choose different username!",
+            life: 3000,
+          });
+        }})
+        if(v === true)
+        dispatch(userActions.addUser({username, password, email}));
+        userList.push({username, password, email});
+        toast.current.show({
+          severity: "success",
+          summary: "Successful",
+          detail: "User created!",
+          life: 3000,
+        });
+        setUsername("")
+        setPassword("")
+        setEmail("")
+      
+  };
+  const handleLogin = () => {
+    setCorrectUser(false)
+    if (existingEmail && existingPassword){
+      userList.map((us) => { 
+        if(us.password === existingPassword && us.email === existingEmail) {
+          setCorrectUser(true)
+          setUsername(us.username)
+          setPassword(us.password)
+          setEmail(us.email)
+          onUserChange({username, password, email})
+        }})
+      console.log("the users:")
+      console.log(userList)
+      // usersList.find(element => element.email === existingEmail )
+      if(correctUser === true){
+        history.push('/dashboard');
+        setCorrectUser(false)
+      }
+      else{
+        console.log('Incorrect credentials')
+        toast.current.show({
+          severity: "error",
+          summary: "Incorrect credentials",
+          detail: "Email and password don't match",
+          life: 3000,
+        });
+      }
+    }
+  };
 
   const handleEnterWithoutAccount = () => {
     history.push('/frontpage');
@@ -79,10 +123,11 @@ function Login() {
 
   return (
     <div className='root'>
+      <Toast ref={toast} />
       <link rel='stylesheet' href='Login.css'></link>
       <div className='form' id='loginForm'>
         <div className='p-mb-3 p-text-center p-text-capitalize p-text-bold centerText'>
-          Sign In
+         <p className="formTitle">Sign In</p>
         </div>
         <br />
         <br />
@@ -137,7 +182,7 @@ function Login() {
       </div>
       <div className='form'>
         <div className='p-mb-3 p-text-center p-text-capitalize p-text-bold centerText'>
-          Register New User
+        <p className="formTitle">Register New User</p> 
         </div>
         <br />
         <br />
@@ -156,7 +201,7 @@ function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <label htmlFor='email'>Email</label>
+            <label htmlFor='email' className='labels'>Email</label>
           </span>
 
           <span className='p-float-label input'>
