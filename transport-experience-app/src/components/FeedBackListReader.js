@@ -63,7 +63,7 @@ function FeedBackListReader() {
           detail: "Feedback Updated",
           life: 3000,
         });
-        console.log(feedback)
+        console.log(feedback);
         dispatch(feedbackActions.updateFeedback(feedback, feedback.id));
       } else {
         dispatch(feedbackActions.addFeedback(feedback));
@@ -84,7 +84,7 @@ function FeedBackListReader() {
 
   const login = () => {
     history.push("/");
-  }
+  };
 
   const findIndexById = (id) => {
     let index = -1;
@@ -123,7 +123,9 @@ function FeedBackListReader() {
 
   const header = (
     <div className="table-header">
-      <h5 className="p-mx-0 p-my-1" id="title">Feedbacks and Experiences with Public Transport</h5>
+      <h5 className="p-mx-0 p-my-1" id="title">
+        Feedbacks and Experiences with Public Transport
+      </h5>
       <span className="p-input-icon-left">
         <i className="pi pi-search" />
         <InputText
@@ -156,14 +158,13 @@ function FeedBackListReader() {
       <Menubar
         end={
           <>
-            <Button icon="pi pi-fw pi-user" label="Sign In" onClick={login}/>
+            <Button icon="pi pi-fw pi-user" label="Sign In" onClick={login} />
           </>
         }
       />
       <div className="datatable-crud-demo">
         <Toast ref={toast} />
         <div className="card">
-
           <DataTable
             value={feedbacks}
             dataKey="id"
@@ -180,7 +181,6 @@ function FeedBackListReader() {
               header="Starting Station"
               sortable
               style={{ minWidth: "12rem" }}
-              
             ></Column>
             <Column
               field="end"

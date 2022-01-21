@@ -17,10 +17,10 @@ import { Dialog } from "primereact/dialog";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { feedbackActions } from "../actions";
 
-const FeedbackListSelector = state => state.feedback.feedbackList;
+const FeedbackListSelector = (state) => state.feedback.feedbackList;
 
 function FeedBackList(props) {
-  const user = props
+  const user = props;
   const clientId =
     "434716652166-ppknk86m7bblshij8q1ooejioch6vuo6.apps.googleusercontent.com";
   const history = useHistory();
@@ -48,7 +48,7 @@ function FeedBackList(props) {
 
   useEffect(() => {
     dispatch(feedbackActions.getFeedbacks());
-    console.log(user)
+    console.log(user);
   }, [dispatch]);
 
   const openNew = () => {
@@ -76,7 +76,7 @@ function FeedBackList(props) {
           detail: "Feedback Updated",
           life: 3000,
         });
-        console.log(feedback)
+        console.log(feedback);
         dispatch(feedbackActions.updateFeedback(feedback, feedback.id));
       } else {
         dispatch(feedbackActions.addFeedback(feedback));
@@ -159,7 +159,9 @@ function FeedBackList(props) {
 
   const header = (
     <div className="table-header">
-      <h5 className="p-mx-0 p-my-1" id="title">Feedbacks and Experiences with Public Transport</h5>
+      <h5 className="p-mx-0 p-my-1" id="title">
+        Feedbacks and Experiences with Public Transport
+      </h5>
       <span className="p-input-icon-left">
         <i className="pi pi-search" />
         <InputText
@@ -169,12 +171,12 @@ function FeedBackList(props) {
         />
       </span>
       <Button
-          label="Add Feedback"
-          icon="pi pi-plus"
-          className="p-button-success p-mr-2"
-          id="butonAddFeedback"
-          onClick={openNew}
-        />
+        label="Add Feedback"
+        icon="pi pi-plus"
+        className="p-button-success p-mr-2"
+        id="butonAddFeedback"
+        onClick={openNew}
+      />
     </div>
   );
   const feedbackDialogFooter = (
@@ -208,15 +210,20 @@ function FeedBackList(props) {
     ></GoogleLogout>
   );
   const goToProfile = (user) => {
-    history.push('/user')
-  }
+    history.push("/user");
+  };
 
   return (
     <div>
       <Menubar
         end={
           <>
-            <Button icon="pi pi-fw pi-user" label="Your Profile" id="yourProfileBtn" onClick={goToProfile}/>
+            <Button
+              icon="pi pi-fw pi-user"
+              label="Your Profile"
+              id="yourProfileBtn"
+              onClick={goToProfile}
+            />
             {endF}
           </>
         }
@@ -224,7 +231,6 @@ function FeedBackList(props) {
       <div className="datatable-crud-demo">
         <Toast ref={toast} />
         <div className="card">
-
           <DataTable
             value={feedbacks}
             dataKey="id"
@@ -241,7 +247,6 @@ function FeedBackList(props) {
               header="Starting Station"
               sortable
               style={{ minWidth: "12rem" }}
-              
             ></Column>
             <Column
               field="end"
@@ -437,7 +442,6 @@ function FeedBackList(props) {
             )}
           </div>
         </Dialog>
-
       </div>
     </div>
   );

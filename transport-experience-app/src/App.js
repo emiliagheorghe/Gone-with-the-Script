@@ -31,9 +31,6 @@ function App() {
       <Route path='/user' exact>
         <UserProfile user={user}/>
       </Route>
-      {/* <Route path='/*' exact>
-        <Error/>
-      </Route> */}
     </Switch>
    </Router>
   )

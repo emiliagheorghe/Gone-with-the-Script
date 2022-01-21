@@ -1,24 +1,31 @@
-.p-float-label{
-    display: block;
-    padding: 20px;
-    text-align: center
+.p-float-label {
+  display: block;
+  padding: 20px;
+  text-align: center;
 }
-.title{
-    text-align: center;
-    font-size: larger;
-    font-weight: 700;
-    padding-bottom: 20px;
+.title {
+  text-align: center;
+  font-size: larger;
+  font-weight: 700;
+  padding-bottom: 20px;
 }
-.button{
-    text-align: center;
+.button {
+  text-align: center;
 }
-.p-button-outlined{
-    margin-right: 10px;
+.p-button-outlined {
+  margin-right: 10px;
 }
-.back{
-    margin: 20px;
+.back {
+  margin: 20px;
 }
-.labels{
-    display: inline;
-    margin-right: 10px;
+.labels {
+  display: inline-flex;
+  margin-right: 10px;
+  text-align: center;
+}
+.lablesDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
